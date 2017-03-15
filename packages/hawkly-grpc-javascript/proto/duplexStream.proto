@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package DuplexStreamTestService;
+
+service DuplexStreamTest {
+  rpc duplexStream(stream TestDuplex) returns (stream TestReply) {}
+}
+
+message TestDuplex {
+  string message = 1;
+}
+
+message TestReply {
+  string message = 1;
+  string metadata = 2;
+}

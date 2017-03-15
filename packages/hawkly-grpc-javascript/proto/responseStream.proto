@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ResponseStreamTestService;
+
+service ResponseStreamTest {
+  rpc responseStream(TestResponse) returns (stream TestReply) {}
+}
+
+message TestResponse {
+  string message = 1;
+}
+
+message TestReply {
+  string message = 1;
+  string metadata = 2;
+}

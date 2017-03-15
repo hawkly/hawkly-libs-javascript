@@ -1,0 +1,8 @@
+node_modules
+build
+lib
+src/**.js
+
+coverage
+.nyc_output
+*.log

@@ -1,0 +1,12 @@
+config
+examples
+tsconfig.json
+tslint.json
+.travis.yml
+.github
+
+coverage
+.nyc_output
+*.log
+proto
+.vscode
