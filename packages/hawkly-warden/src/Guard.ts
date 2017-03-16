@@ -58,10 +58,17 @@ export class Guard {
     console.log('-----\n\n');
     console.log('decrypted', decrypted);
 
-    const cardSignature = decrypted.s;
+    const checkSignature = this.checkSignature(
+      decrypted.c,
+      decrypted.s,
+      keySet.publicKey,
+    );
+    console.log('checkSig', checkSignature);
+    if (checkSignature !== true) {
+      throw Error('Card is not valid');
+    }
 
     const card: Card = this.hyrdateCard(decrypted.c);
-    console.log('cs', cardSignature);
     console.log('card', card);
     // Check the cards signature is intact
 
@@ -113,7 +120,19 @@ export class Guard {
     return JSON.parse(deciphered);
   }
 
+  private checkSignature(
+    card: DehydratedCard,
+    signature: string,
+    publicKey: string,
+  ): boolean {
+    const verify = crypto.createVerify('RSA-SHA256');
+    verify.update(JSON.stringify(card));
+    return verify.verify(publicKey, new Buffer(signature, 'hex'));
+  }
+
   private hyrdateCard(dehydratedCard: DehydratedCard): Card {
+
+    // check all the required fields are here, or throw
     const card: Card = {
       uuid: dehydratedCard.u,
       classification: dehydratedCard.c,
