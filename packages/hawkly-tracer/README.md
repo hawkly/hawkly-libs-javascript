@@ -1,10 +1,4 @@
 # hawkly tracer for javascript (opentracing)
-[Repository](https://github.com/hawkly/hawkly-tracer-javascript) | [npm](https://www.npmjs.com/package/hawkly)
-
-[![codecov](https://codecov.io/gh/hawkly/hawkly-tracer-javascript/branch/master/graph/badge.svg)](https://codecov.io/gh/hawkly/hawkly-tracer-javascript)
-[![Build Status](https://travis-ci.org/hawkly/hawkly-tracer-javascript.svg?branch=master)](https://travis-ci.org/hawkly/hawkly-tracer-javascript)
-[![NSP Status](https://nodesecurity.io/orgs/hawklyio/projects/dcb2409a-88c9-466d-bfc7-15b89417342d/badge)](https://nodesecurity.io/orgs/hawklyio/projects/dcb2409a-88c9-466d-bfc7-15b89417342d)
-[![Known Vulnerabilities](https://snyk.io/test/npm/hawkly/badge.svg)](https://snyk.io/test/npm/hawkly)
 
 *Work in progress*
 

@@ -5,8 +5,11 @@
   "main": "lib/main/index.js",
   "typings": "lib/main/index.d.ts",
   "module": "lib/module/index.js",
-  "repository": "https://github.com/hawkly/hawkly-tracer-javascript",
+  "repository": "https://github.com/hawkly/hawkly-libs-javascript/hawkly-tracer",
   "author": "Owen Kelly <owen@owenkelly.com.au>",
+  "bugs": {
+    "url": "https://github.com/hawkly/hawkly-libs-javascript/issues"
+  },
   "license": "MIT",
   "scripts": {
     "info": "npm-scripts-info",

@@ -1,10 +1,6 @@
 # hawkly gRPC wrapper for javascript
 [Repository](https://github.com/hawkly/hawkly-grpc-javascript) | [npm](https://www.npmjs.com/package/hawkly-grpc)
 
-[![codecov](https://codecov.io/gh/hawkly/hawkly-grpc-javascript/branch/master/graph/badge.svg)](https://codecov.io/gh/hawkly/hawkly-grpc-javascript)
-[![Build Status](https://travis-ci.org/hawkly/hawkly-grpc-javascript.svg?branch=master)](https://travis-ci.org/hawkly/hawkly-grpc-javascript)
-[![NSP Status](https://nodesecurity.io/orgs/hawklyio/projects/a62f8b79-c790-4fd6-9389-53a88b53fba1/badge)](https://nodesecurity.io/orgs/hawklyio/projects/a62f8b79-c790-4fd6-9389-53a88b53fba1)
-[![Known Vulnerabilities](https://snyk.io/test/npm/hawkly-grpc/badge.svg)](https://snyk.io/test/npm/hawkly-grpc)git a
 *Work in progress*
 
 This is a wrapper around gRPC to add opentracing and async/await.
