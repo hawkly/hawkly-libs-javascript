@@ -59,7 +59,7 @@ export class Warden {
     // TODO: typecheck the options
 
     // Assemble the card
-    const card: CardOnTheWire = {
+    const card: DehydratedCard = {
       u: options.uuid,
       c: options.classification,
       r: options.roles,
@@ -75,7 +75,7 @@ export class Warden {
     return await this.secureCard(card);
   }
 
-  private async secureCard(card: CardOnTheWire): Promise<string> {
+  private async secureCard(card: DehydratedCard): Promise<string> {
     console.log(card);
     const keySet: WardenKeySet = this.getKeyPair();
     const cardSignature = this.createCardSignature(card, keySet.privateKey);
@@ -93,13 +93,13 @@ export class Warden {
   private createCardSignature(card, privateKey) {
     const signature = crypto.createSign('RSA-SHA256');
     signature.update(JSON.stringify(card));
-    return signature.sign(privateKey);
+    return signature.sign(privateKey).toString('hex');
   }
 
   // Encrypt the card and it's signature
   private createCardCipher(card, cardSignature, symmetric) {
     const cipher = crypto.createCipher(
-      'aes-256-gcm',
+      'aes192',
       new Buffer(symmetric, 'hex'),
     );
     let encrypted = cipher.update(
@@ -154,7 +154,7 @@ export interface WardenKeySet {
 }
 
 
-interface CardOnTheWire {
+interface DehydratedCard {
   // uuid: A unique identifier for the card holder
   u: string;
 

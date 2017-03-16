@@ -6,6 +6,10 @@ import {
   CardClassificationExpiryLengths,
 } from './index';
 
+import {
+  DehydratedCard,
+} from './Warden';
+
 export class Guard {
 
   private keys: GuardKeySet[];
@@ -35,7 +39,7 @@ export class Guard {
     this.keys = keys;
   }
 
-  // Check the card is valid, and if it is return the card  
+  // Check the card is valid, and if it is return the card
   public checkCard(cardString: string): Card {
 
     const cardBuffer = new Buffer(cardString, 'base64').toString('utf8');
@@ -43,13 +47,26 @@ export class Guard {
 
     const cardArray: string[] = cardBuffer.split('.');
     const encrypted = cardArray[0];
-
     const hmac = cardArray[1];
+
+    // Check the HMAC
     const keySet: GuardKeySet = this.checkHMAC(encrypted, hmac);
 
-    console.log('keySet', keySet);
-    const card: Card = JSON.parse(cardBuffer);
 
+    // Decypt the card
+    const decrypted: any = this.decryptCard(encrypted, keySet.symmetric);
+    console.log('-----\n\n');
+    console.log('decrypted', decrypted);
+
+    const cardSignature = decrypted.s;
+
+    const card: Card = this.hyrdateCard(decrypted.c);
+    console.log('cs', cardSignature);
+    console.log('card', card);
+    // Check the cards signature is intact
+
+
+    // Check the card as not expired
     const expiryTime: number = this.getClassificationExpiryTime(card.classification);
     if (expiryTime < card.issued) {
       throw new Error('Card has expired');
@@ -85,8 +102,32 @@ export class Guard {
     return keySet;
   }
 
+  private decryptCard(encrypted: string, symmetric: string): any {
+    const decipher = crypto.createDecipher(
+      'aes192',
+      new Buffer(symmetric, 'hex'),
+    );
+    let deciphered = '';
+    deciphered += decipher.update(encrypted, 'hex', 'utf8');
+    deciphered += decipher.final('utf8');
+    return JSON.parse(deciphered);
+  }
+
+  private hyrdateCard(dehydratedCard: DehydratedCard): Card {
+    const card: Card = {
+      uuid: dehydratedCard.u,
+      classification: dehydratedCard.c,
+      roles: dehydratedCard.r,
+      issued: dehydratedCard.i,
+    };
+    if (dehydratedCard.tenant) {
+      card.tenant = dehydratedCard.tenant;
+    }
+    return card;
+  }
 
   private getClassificationExpiryTime(classification: CardClassification): number {
+    console.log(classification);
     const expires: Date = new Date();
     switch (classification) {
       case CardClassification.access:
