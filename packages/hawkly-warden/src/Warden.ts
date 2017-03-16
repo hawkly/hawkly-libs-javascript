@@ -6,15 +6,15 @@ import {
 
 export class Warden {
 
-  private keys: PrivateKeyPair[];
+  private keys: WardenKeySet[];
 
-  constructor(keys: PrivateKeyPair[]) {
+  constructor(keys: WardenKeySet[]) {
     if (Array.isArray(keys) === false) {
       throw new TypeError('key is not an array');
     }
 
     // Check the keys are of the correct type
-    keys.forEach((key: PrivateKeyPair) => {
+    keys.forEach((key: WardenKeySet) => {
       if (typeof key.privateKey !== 'string') {
         throw new TypeError('A private key is not a string');
       }
@@ -31,14 +31,14 @@ export class Warden {
         throw new TypeError('A key expires is not a number');
       }
     });
-
+    // TODO parse the keys so the newest is first, and any expired keys are discarded
     this.keys = keys;
   }
 
   /**
    * Return the newest key
    */
-  private getKeyPair(): PrivateKeyPair {
+  private getKeyPair(): WardenKeySet {
     return this.keys.reduce((prev, current) => {
       return (prev.expires > current.expires) ? prev : current;
     });
@@ -77,12 +77,12 @@ export class Warden {
 
   private async secureCard(card: CardOnTheWire): Promise<string> {
     console.log(card);
-    const key: PrivateKeyPair = this.getKeyPair();
-    const cardSignature = this.createCardSignature(card, key.privateKey);
+    const keySet: WardenKeySet = this.getKeyPair();
+    const cardSignature = this.createCardSignature(card, keySet.privateKey);
 
-    const encrypted = this.createCardCipher(card, cardSignature, key.symmetric);
+    const encrypted = this.createCardCipher(card, cardSignature, keySet.symmetric);
 
-    const hmac = this.createCardHMAC(encrypted, key.hmac);
+    const hmac = this.createCardHMAC(encrypted, keySet.hmac);
 
     return new Buffer(`${encrypted}.${hmac}`, 'utf8').toString('base64');
   }
@@ -144,7 +144,7 @@ export interface CreateCardOptions {
   issued?: number;
 };
 
-export interface PrivateKeyPair {
+export interface WardenKeySet {
   publicKey: string;
   privateKey: string;
   symmetric: string;
