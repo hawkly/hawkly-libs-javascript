@@ -1,4 +1,5 @@
 import * as createKeys from 'rsa-json';
+import * as crypto from 'crypto';
 
 import {
   Card,
@@ -20,7 +21,7 @@ test('can encrypt and decrypt bearer token', async (t: any): Promise<void> => {
   ];
 
   const warden: Warden = new Warden(keys.privateKeys);
-  const card: any = warden.createCard({
+  const card: any = await warden.createCard({
     uuid,
     tenant,
     classification: CardClassification.access,
@@ -31,7 +32,7 @@ test('can encrypt and decrypt bearer token', async (t: any): Promise<void> => {
   const guard: Guard = new Guard(keys.publicKeys);
 
   try {
-    const userCard: Card = guard.checkCard(card);
+    const userCard: Card = await guard.checkCard(card);
     console.log('userCard', userCard);
     t.pass();
   } catch (err) {
@@ -56,6 +57,8 @@ async function createNewKey(): Promise<any> {
     expires: expires.getTime(),
   };
 }
+
+// Helper function to generate a set of keys
 async function createAllKeys(): Promise<any> {
   const rawKeys: any[] = await Promise.all([
     createNewKey(),
@@ -63,7 +66,16 @@ async function createAllKeys(): Promise<any> {
     createNewKey(),
   ]);
 
-  const privateKeys: any[] = rawKeys.map((key, i) => {
+  // Add a symmetric key to each key pair  
+  const keys: any[] = rawKeys.map((key) => {
+    return {
+      ...key,
+      symmetric: crypto.randomBytes(32).toString('hex'), // 256bit
+      hmac: crypto.randomBytes(32).toString('hex'),     // 256bit
+    };
+  });
+
+  const privateKeys: any[] = keys.map((key, i) => {
     // because this is the first time keys are being generated we need to emulate
     // the expiries as if the keys have been rotated.
     const dayMultiple = i + 1 * 7;
@@ -71,14 +83,15 @@ async function createAllKeys(): Promise<any> {
     expires.setTime(expires.getTime() + dayMultiple * 86400000);
 
     return {
-      id: key.id,
-      public: key.keys.public,
-      private: key.keys.private,
+      publicKey: key.keys.public,
+      privateKey: key.keys.private,
+      symmetric: key.symmetric,
+      hmac: key.hmac,
       expires: expires.getTime(),
     };
   });
 
-  const publicKeys: any[] = rawKeys.map((key, i) => {
+  const publicKeys: any[] = keys.map((key, i) => {
     // because this is the first time keys are being generated we need to emulate
     // the expiries as if the keys have been rotated.
     const dayMultiple = i + 1 * 7;
@@ -86,8 +99,9 @@ async function createAllKeys(): Promise<any> {
     expires.setTime(expires.getTime() + dayMultiple * 86400000);
 
     return {
-      id: key.id,
-      public: key.keys.public,
+      publicKey: key.keys.public,
+      symmetric: key.symmetric,
+      hmac: key.hmac,
       expires: expires.getTime(),
     };
   });

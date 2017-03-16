@@ -18,7 +18,10 @@ export class Guard {
   }
 
   public checkCard(cardString: string): Card {
-    const card: Card = JSON.parse(cardString);
+
+    const cardBuffer = new Buffer(cardString, 'base64').toString('utf8');
+    console.log('cardBuffer', cardBuffer)
+    const card: Card = JSON.parse(cardBuffer);
 
     const expiryTime: number = this.getClassificationExpiryTime(card.classification);
     if (expiryTime < card.issued) {

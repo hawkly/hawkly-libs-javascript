@@ -8,6 +8,15 @@ authentication service, verfiy and decrypt the token.
 
 ## Design
 
+Assumptions:
+There a a set of key pairs.
+Each key pair contains a `private`, `public` and `symmetric` key.
+
+`authentication service` is the sole holder of the `private` keys.
+All `services` are holders of the `public` and `symmetric` keys.
+Clients (browsers/mobile) hold no keys.
+
+
 1. The `token` is created by the `authentication service`.
 2. The `token` is delivered to the users browser as a `HttpOnly` cookie.
   - There is no reason or need for the browser to read the `token`, as it should be completely
