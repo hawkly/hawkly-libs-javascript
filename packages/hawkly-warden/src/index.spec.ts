@@ -12,7 +12,7 @@ import { test } from 'ava';
 
 test('can encrypt and decrypt bearer token', async (t: any): Promise<void> => {
   const keys: any = await createAllKeys();
-  console.log(keys)
+  console.log(keys);
   const uuid: string = '523b519b-cb8b-4fd5-8a46-ff4bab206fad';
   const tenant: string = '48d2d67d-2452-4828-8ad4-cda87679fc91';
   const roles: string[] = [
@@ -39,7 +39,6 @@ test('can encrypt and decrypt bearer token', async (t: any): Promise<void> => {
     console.warn(err);
     t.fail(err.message);
   }
-
 });
 
 

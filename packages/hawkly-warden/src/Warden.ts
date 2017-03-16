@@ -64,7 +64,6 @@ export class Warden {
       c: options.classification,
       r: options.roles,
       i: options.issued || Date.now(),
-      iv: await this.getRandom(16),
     };
 
     // Add the tenant if there is one
@@ -78,13 +77,19 @@ export class Warden {
   private async secureCard(card: DehydratedCard): Promise<string> {
     console.log(card);
     const keySet: WardenKeySet = this.getKeyPair();
+    const iv = await this.getRandom(16);
     const cardSignature = this.createCardSignature(card, keySet.privateKey);
+    const {
+      encrypted,
+      auth,
+    }: {
+        encrypted: string,
+        auth: string,
+      } = this.createCardCipher(card, cardSignature, keySet.symmetric, iv);
+    const payload: string = `${encrypted}.${auth}.${iv}`;
+    const hmac: string = this.createCardHMAC(payload, keySet.hmac);
 
-    const encrypted = this.createCardCipher(card, cardSignature, keySet.symmetric);
-
-    const hmac = this.createCardHMAC(encrypted, keySet.hmac);
-
-    return new Buffer(`${encrypted}.${hmac}`, 'utf8').toString('base64');
+    return new Buffer(`${payload}.${hmac}`, 'utf8').toString('base64');
   }
 
   // Create the card signature
@@ -97,12 +102,16 @@ export class Warden {
   }
 
   // Encrypt the card and it's signature
-  private createCardCipher(card, cardSignature, symmetric) {
-    const cipher = crypto.createCipher(
-      'aes192',
+  private createCardCipher(card: DehydratedCard, cardSignature: string, symmetric: string, iv: string): {
+    encrypted: string,
+    auth: string,
+  } {
+    const cipher = crypto.createCipheriv(
+      'aes-256-gcm',
       new Buffer(symmetric, 'hex'),
+      new Buffer(iv, 'hex'),
     );
-    let encrypted = cipher.update(
+    let encrypted: string = cipher.update(
       JSON.stringify({
         c: card,
         s: cardSignature,
@@ -111,7 +120,11 @@ export class Warden {
       'hex',
     );
     encrypted += cipher.final('hex');
-    return encrypted;
+    const auth: string = cipher.getAuthTag().toString('hex');
+    return {
+      encrypted,
+      auth,
+    };
   }
 
   // now create a HMAC of the crypted card
@@ -169,7 +182,4 @@ interface DehydratedCard {
 
   // issued: The time when this card was created
   i: number;
-
-  // intialisation vector, to ensure randomness in the outputted card  
-  iv: string;
 }

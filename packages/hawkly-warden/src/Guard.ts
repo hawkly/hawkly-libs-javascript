@@ -46,30 +46,29 @@ export class Guard {
     console.log('cardBuffer', cardBuffer);
 
     const cardArray: string[] = cardBuffer.split('.');
-    const encrypted = cardArray[0];
-    const hmac = cardArray[1];
+    const encrypted: string = cardArray[0];
+    const encryptedAuth: string = cardArray[1];
+    const iv: string = cardArray[2];
+    const hmac: string = cardArray[3];
+    console.log('cardArray', cardArray);
 
     // Check the HMAC
-    const keySet: GuardKeySet = this.checkHMAC(encrypted, hmac);
+    const keySet: GuardKeySet = this.checkHMAC(`${encrypted}.${encryptedAuth}.${iv}`, hmac);
 
 
     // Decypt the card
-    const decrypted: any = this.decryptCard(encrypted, keySet.symmetric);
-    console.log('-----\n\n');
+    const decrypted: any = this.decryptCard(encrypted, encryptedAuth, keySet.symmetric, iv);
     console.log('decrypted', decrypted);
-
     const checkSignature = this.checkSignature(
       decrypted.c,
       decrypted.s,
       keySet.publicKey,
     );
-    console.log('checkSig', checkSignature);
     if (checkSignature !== true) {
       throw Error('Card is not valid');
     }
 
     const card: Card = this.hyrdateCard(decrypted.c);
-    console.log('card', card);
     // Check the cards signature is intact
 
 
@@ -82,14 +81,14 @@ export class Guard {
   }
 
   // Check the HMAC and if correct, return the keys used
-  private checkHMAC(encrypted: string, HMAC: string): GuardKeySet {
+  private checkHMAC(payload: string, HMAC: string): GuardKeySet {
     const keySet: GuardKeySet | undefined = this.keys.find(
       (keySet: GuardKeySet) => {
         const ourHMAC: string = crypto.createHmac(
           'sha256',
           keySet.hmac,
         )
-          .update(encrypted)
+          .update(payload)
           .digest('hex');
 
         if (
@@ -109,11 +108,13 @@ export class Guard {
     return keySet;
   }
 
-  private decryptCard(encrypted: string, symmetric: string): any {
-    const decipher = crypto.createDecipher(
-      'aes192',
+  private decryptCard(encrypted: string, auth: string, symmetric: string, iv: string): any {
+    const decipher = crypto.createDecipheriv(
+      'aes-256-gcm',
       new Buffer(symmetric, 'hex'),
+      new Buffer(iv, 'hex'),
     );
+    decipher.setAuthTag(new Buffer(auth, 'hex'));
     let deciphered = '';
     deciphered += decipher.update(encrypted, 'hex', 'utf8');
     deciphered += decipher.final('utf8');
