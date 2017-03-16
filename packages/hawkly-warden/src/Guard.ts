@@ -43,14 +43,12 @@ export class Guard {
   public checkCard(cardString: string): Card {
 
     const cardBuffer = new Buffer(cardString, 'base64').toString('utf8');
-    console.log('cardBuffer', cardBuffer);
 
     const cardArray: string[] = cardBuffer.split('.');
     const encrypted: string = cardArray[0];
     const encryptedAuth: string = cardArray[1];
     const iv: string = cardArray[2];
     const hmac: string = cardArray[3];
-    console.log('cardArray', cardArray);
 
     // Check the HMAC
     const keySet: GuardKeySet = this.checkHMAC(`${encrypted}.${encryptedAuth}.${iv}`, hmac);
@@ -58,7 +56,6 @@ export class Guard {
 
     // Decypt the card
     const decrypted: any = this.decryptCard(encrypted, encryptedAuth, keySet.symmetric, iv);
-    console.log('decrypted', decrypted);
     const checkSignature = this.checkSignature(
       decrypted.c,
       decrypted.s,
@@ -140,14 +137,13 @@ export class Guard {
       roles: dehydratedCard.r,
       issued: dehydratedCard.i,
     };
-    if (dehydratedCard.tenant) {
-      card.tenant = dehydratedCard.tenant;
+    if (dehydratedCard.t) {
+      card.tenant = dehydratedCard.t;
     }
     return card;
   }
 
   private getClassificationExpiryTime(classification: CardClassification): number {
-    console.log(classification);
     const expires: Date = new Date();
     switch (classification) {
       case CardClassification.access:

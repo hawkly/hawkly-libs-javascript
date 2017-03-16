@@ -18,8 +18,6 @@ const CardClassificationExpiryLengths: {
     mfa: 5,            // 5 minutes
   };
 
-
-
 interface Card {
   // A unique identifier for the card holder
   uuid: string;

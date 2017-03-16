@@ -75,7 +75,6 @@ export class Warden {
   }
 
   private async secureCard(card: DehydratedCard): Promise<string> {
-    console.log(card);
     const keySet: WardenKeySet = this.getKeyPair();
     const iv = await this.getRandom(16);
     const cardSignature = this.createCardSignature(card, keySet.privateKey);
@@ -167,7 +166,7 @@ export interface WardenKeySet {
 }
 
 
-interface DehydratedCard {
+export interface DehydratedCard {
   // uuid: A unique identifier for the card holder
   u: string;
 
