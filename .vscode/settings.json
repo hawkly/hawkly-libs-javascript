@@ -1,0 +1,19 @@
+// VScode settings
+// for modules: [tslint, kisstkondoros.vscode-codemetrics]
+{
+  "typescript.validate.enable": true,
+  "typescript.format.enable": true,
+  // https://github.com/kisstkondoros/tsmetrics-core/blob/master/MetricsConfiguration.ts
+  "codemetrics.basics.ComplexityLevelExtreme": 75,
+  "codemetrics.basics.ComplexityLevelHigh": 40,
+  "codemetrics.basics.ComplexityLevelNormal": 15,
+  "codemetrics.basics.ComplexityLevelLow": 8,
+  // someone uses 'any', it must be punished
+  "codemetrics.nodeconfiguration.AnyKeyword": 1,
+  "codemetrics.nodeconfiguration.IfWithElseStatement": 1,
+  // For fun
+  "codemetrics.basics.ComplexityLevelExtremeDescription": "This is bad, and you should feel bad. Don't even think about committing this.",
+  "codemetrics.basics.ComplexityLevelHighDescription": "I feel bad for the next person who has to read this mess.",
+  "codemetrics.basics.ComplexityLevelNormalDescription": "Yeah, we're getting a bit compilcated in here.",
+  "codemetrics.basics.ComplexityLevelLowDescription": "This is just beautiful, it's like poety with weird punctuation and timing."
+}

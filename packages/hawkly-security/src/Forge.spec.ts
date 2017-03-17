@@ -24,6 +24,7 @@ test.only('forge can create complete keySetCollections', async (t: any) => {
   const keySetCollection: ForgeInitKeySet = await forge.initKeySetCollections();
 
   let matchingKeys: number = 0;
+
   keySetCollection.wardenKeySetCollection.forEach((wardenKeySet: WardenKeySet) => {
     // Find the matching guardKeySet
     keySetCollection.guardKeySetCollection.forEach((guardKeySet: GuardKeySet) => {
