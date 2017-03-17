@@ -1,3 +1,4 @@
+import { Forge } from './Forge';
 import { Guard } from './Guard';
 import { Warden } from './Warden';
 
@@ -35,8 +36,9 @@ interface Card {
 }
 
 export {
-  Guard,
   Warden,
+  Guard,
+  Forge,
   Card,
   CardClassification,
   CardClassificationExpiryLengths,
