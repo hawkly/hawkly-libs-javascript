@@ -8,7 +8,7 @@ import {
   HawklyError,
   TracedRequestStream,
   createClient,
-  hawklyMiddleware,
+  hawklyMaliMiddleware,
 } from './index';
 
 import { TracedDuplexStream } from './client';
@@ -68,7 +68,7 @@ test('unary request should work', async (t: any): Promise<void> => {
     };
 
     // Add the hawkly middleware for tracing server calls
-    app.use(hawklyMiddleware(hawklyTracerOptions));
+    app.use(hawklyMaliMiddleware(hawklyTracerOptions));
     // add our server handler for the sayHello call
     app.use({ sayHello });
     app.start(grpcHost);
@@ -172,7 +172,7 @@ test('unary request should return error in server handler back to client', async
   };
 
   // Add the hawkly middleware for tracing server calls
-  app.use(hawklyMiddleware(hawklyTracerOptions));
+  app.use(hawklyMaliMiddleware(hawklyTracerOptions));
   // add our server handler for the sayHello call
   app.use({
     sayHello: () => {
@@ -244,7 +244,7 @@ test('request streaming should work', async (t: any) => {
     };
 
     // Add the hawkly middleware for tracing server calls
-    app.use(hawklyMiddleware(hawklyTracerOptions));
+    app.use(hawklyMaliMiddleware(hawklyTracerOptions));
     // add our server handler for the sayHello call
     app.use({
       requestStream: async (ctx) => {
@@ -370,7 +370,7 @@ test('response streaming should work', async (t: any) => {
     };
 
     // Add the hawkly middleware for tracing server calls
-    app.use(hawklyMiddleware(hawklyTracerOptions));
+    app.use(hawklyMaliMiddleware(hawklyTracerOptions));
     // add our server handler for the sayHello call
     app.use({
       responseStream: async (ctx) => {
@@ -484,7 +484,7 @@ test('duplex streaming should work', async (t: any) => {
   };
 
   // Add the hawkly middleware for tracing server calls
-  app.use(hawklyMiddleware(hawklyTracerOptions));
+  app.use(hawklyMaliMiddleware(hawklyTracerOptions));
   // add our server handler for the sayHello call
   app.use({
     duplexStream: async (ctx) => {
@@ -600,7 +600,7 @@ test('should be able to pass in another opentracing compatible Tracer()', async 
       tracer: new opentracing.Tracer(),
     };
 
-    app.use(hawklyMiddleware(hawklyTracerOptions));
+    app.use(hawklyMaliMiddleware(hawklyTracerOptions));
     app.use({ sayHello });
     app.start(grpcHost);
 
