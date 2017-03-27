@@ -92,11 +92,11 @@
     "create-grpc-error": "^0.1.0",
     "debug": "^2.6.2",
     "google-protobuf": "^3.2.0",
-    "grpc": "^1.1.2",
+    "grpc": "^1.2.0",
     "grpc-create-metadata": "1.0.0",
     "grpc-inspect": "^0.1.2",
-    "hawkly": "^0.5.17",
-    "mali": "^0.2.1",
+    "hawkly": "^0.5.20",
+    "mali": "^0.2.3",
     "mali-metadata": "^0.1.0",
     "opentracing": "^0.13.0"
   }
