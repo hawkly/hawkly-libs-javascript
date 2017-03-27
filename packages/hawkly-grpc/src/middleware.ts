@@ -73,17 +73,17 @@ function hawklyKoaMiddleware(options: any): any {
   // tslint:disable-next-line:no-function-expression only-arrow-functions
   return async function hawklyMiddleware(ctx: any, next: any): Promise<void> {
     // if there is a span on the request then join
-    if (false) { // TODO: ALL OF THIS
-      // this.span = this.harmonia.tracer.join(
-      //     `${this.service}.${message.action}`,
-      //     lastReceivedMessage,
-      // );
+    // if (false) { // TODO: ALL OF THIS
+    // this.span = this.harmonia.tracer.join(
+    //     `${this.service}.${message.action}`,
+    //     lastReceivedMessage,
+    // );
 
-    } else { // otherwise create a new span
-      this.span = this.harmonia.tracer.startSpan({
-        operationName: `${this.service}.${ctx.request.method}`,
-      });
-    }
+    // } else { // otherwise create a new span
+    this.span = this.harmonia.tracer.startSpan({
+      operationName: `${this.service}.${ctx.request.method}`,
+    });
+    // }
 
     // Add a bunch of useful tags to our span
     this.span.addTags({

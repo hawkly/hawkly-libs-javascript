@@ -131,7 +131,7 @@
     "no-inner-html": true,
     "no-internal-module": false,
     "no-invalid-regexp": true,
-    "no-invalid-this": true,
+    "no-invalid-this": false,
     "no-jquery-raw-elements": true,
     "no-mergeable-namespace": false,
     "no-missing-visibility-modifiers": true,

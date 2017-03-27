@@ -2,5 +2,11 @@ sudo: false
 language: node_js
 node_js:
   - 6
+install:
+  - npm install -g lerna yarn
+  - lerna bootstrap
+script:
+- lerna run build
+- lerna run test
 after_success:
   - yarn send-coverage

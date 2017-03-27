@@ -1,0 +1,173 @@
+lerna(verbose) GitUtilities.isInitialized    ()
+lerna(verbose) GitUtilities.isInitialized    () => true
+lerna(verbose) GitUtilities.getTopLevelDirectory()
+lerna(verbose) GitUtilities.getTopLevelDirectory() => "."
+lerna(verbose) FileSystemUtilities.existsSync("./lerna.json")
+lerna(verbose) FileSystemUtilities.existsSync("./lerna.json") => true
+lerna(verbose) FileSystemUtilities.readFileSync("./lerna.json")
+lerna(verbose) FileSystemUtilities.readFileSync("./lerna.json") => "{\n  \"lerna\": \"2.0.0-beta.38\",\n  \"packages\": [\n    \"packages/*\"\n  ],\n  \"version\": \"0.0.0\"\n}"
+lerna(verbose) FileSystemUtilities.existsSync("./package.json")
+lerna(verbose) FileSystemUtilities.existsSync("./package.json") => true
+lerna(verbose) FileSystemUtilities.readFileSync("./package.json")
+lerna(verbose) FileSystemUtilities.readFileSync("./package.json") => "{\n  \"devDependencies\": {\n    \"lerna\": \"2.0.0-beta.38\"\n  }\n}"
+lerna(info)    Lerna v2.0.0-beta.38
+lerna(verbose) FileSystemUtilities.existsSync("./package.json")
+lerna(verbose) FileSystemUtilities.existsSync("./package.json") => true
+lerna(verbose) FileSystemUtilities.existsSync("./lerna.json")
+lerna(verbose) FileSystemUtilities.existsSync("./lerna.json") => true
+lerna(verbose) FileSystemUtilities.existsSync("./VERSION")
+lerna(verbose) FileSystemUtilities.existsSync("./VERSION") => false
+lerna(verbose) FileSystemUtilities.existsSync("./packages/hawkly-grpc/package.json")
+lerna(verbose) FileSystemUtilities.existsSync("./packages/hawkly-grpc/package.json") => true
+lerna(verbose) FileSystemUtilities.existsSync("./packages/hawkly-tracer/package.json")
+lerna(verbose) FileSystemUtilities.existsSync("./packages/hawkly-tracer/package.json") => true
+lerna(verbose) Attempting running RunCommand.initialize
+lerna(verbose) Successfully ran RunCommand.initialize
+lerna(verbose) Attempting running RunCommand.execute
+lerna(verbose) NpmUtilities.runScriptInDir   ("test", [], "./packages/hawkly-tracer")
+lerna(verbose) NpmUtilities.execInDir        ("run test", [], "./packages/hawkly-tracer")
+lerna(verbose) NpmUtilities.execInDir        ("run test", [], "./packages/hawkly-tracer") => "\n> hawkly@0.5.20 test ./packages/hawkly-tracer\n> yarn lint && yarn unit && yarn check-coverage\n\nyarn lint v0.21.3\n$ tslint src/**/*.ts \nDone in 3.24s.\nyarn unit v0.21.3\n$ yarn build && yarn build:tests && nyc ava \nyarn build v0.21.3\n$ trash build && yarn build:main && yarn build:module && yarn build:browser-deps && yarn build:browser && yarn build:browser-cjs && yarn build:resolve-sourcemaps \nyarn build:main v0.21.3\n$ tsc -p tsconfig.json \nDone in 1.73s.\nyarn build:module v0.21.3\n$ tsc -p config/exports/tsconfig.module.json \nDone in 1.63s.\nyarn build:browser-deps v0.21.3\n$ mkdir -p build/temp && browserify node_modules/hash.js/lib/hash.js --standalone hash -o build/temp/hash.js \nDone in 0.44s.\nyarn build:browser v0.21.3\n$ rollup -c config/exports/rollup.config.js -f es -o build/browser/index.js \nDone in 0.64s.\nyarn build:browser-cjs v0.21.3\n$ rollup -c config/exports/rollup.config.js -f cjs -o build/browser/index.cjs.js \nDone in 0.76s.\nyarn build:resolve-sourcemaps v0.21.3\n$ sorcery -i build/browser/index.js && sorcery -i build/browser/index.cjs.js \nDone in 0.43s.\nDone in 7.37s.\nyarn build:tests v0.21.3\n$ trash test && node config/exports/build-tests.js \nDone in 0.94s.\n-------------|----------|----------|----------|----------|----------------|\nFile         |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |\n-------------|----------|----------|----------|----------|----------------|\nAll files    |    89.01 |    79.63 |      100 |    89.01 |                |\n src         |      100 |      100 |      100 |      100 |                |\n  index.ts   |      100 |      100 |      100 |      100 |                |\n src/tracer  |    88.64 |    79.63 |      100 |    88.64 |                |\n  Context.ts |      100 |      100 |      100 |      100 |                |\n  Span.ts    |      100 |    92.86 |      100 |      100 |                |\n  Tracer.ts  |    84.96 |    75.58 |      100 |    84.96 |... 216,221,259 |\n-------------|----------|----------|----------|----------|----------------|\nDone in 12.05s.\nyarn check-coverage v0.21.3\n$ nyc check-coverage --lines 80 --functions 100 --branches 70 \nDone in 0.52s.\n"
+lerna(verbose) NpmUtilities.runScriptInDir   ("test", [], "./packages/hawkly-tracer") => "\n> hawkly@0.5.20 test ./packages/hawkly-tracer\n> yarn lint && yarn unit && yarn check-coverage\n\nyarn lint v0.21.3\n$ tslint src/**/*.ts \nDone in 3.24s.\nyarn unit v0.21.3\n$ yarn build && yarn build:tests && nyc ava \nyarn build v0.21.3\n$ trash build && yarn build:main && yarn build:module && yarn build:browser-deps && yarn build:browser && yarn build:browser-cjs && yarn build:resolve-sourcemaps \nyarn build:main v0.21.3\n$ tsc -p tsconfig.json \nDone in 1.73s.\nyarn build:module v0.21.3\n$ tsc -p config/exports/tsconfig.module.json \nDone in 1.63s.\nyarn build:browser-deps v0.21.3\n$ mkdir -p build/temp && browserify node_modules/hash.js/lib/hash.js --standalone hash -o build/temp/hash.js \nDone in 0.44s.\nyarn build:browser v0.21.3\n$ rollup -c config/exports/rollup.config.js -f es -o build/browser/index.js \nDone in 0.64s.\nyarn build:browser-cjs v0.21.3\n$ rollup -c config/exports/rollup.config.js -f cjs -o build/browser/index.cjs.js \nDone in 0.76s.\nyarn build:resolve-sourcemaps v0.21.3\n$ sorcery -i build/browser/index.js && sorcery -i build/browser/index.cjs.js \nDone in 0.43s.\nDone in 7.37s.\nyarn build:tests v0.21.3\n$ trash test && node config/exports/build-tests.js \nDone in 0.94s.\n-------------|----------|----------|----------|----------|----------------|\nFile         |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |\n-------------|----------|----------|----------|----------|----------------|\nAll files    |    89.01 |    79.63 |      100 |    89.01 |                |\n src         |      100 |      100 |      100 |      100 |                |\n  index.ts   |      100 |      100 |      100 |      100 |                |\n src/tracer  |    88.64 |    79.63 |      100 |    88.64 |                |\n  Context.ts |      100 |      100 |      100 |      100 |                |\n  Span.ts    |      100 |    92.86 |      100 |      100 |                |\n  Tracer.ts  |    84.96 |    75.58 |      100 |    84.96 |... 216,221,259 |\n-------------|----------|----------|----------|----------|----------------|\nDone in 12.05s.\nyarn check-coverage v0.21.3\n$ nyc check-coverage --lines 80 --functions 100 --branches 70 \nDone in 0.52s.\n"
+lerna(info)    
+> hawkly@0.5.20 test /Users/owen/Code/repositories/hawkly/hawkly-libs-javascript/packages/hawkly-tracer
+> yarn lint && yarn unit && yarn check-coverage
+
+yarn lint v0.21.3
+$ tslint src/**/*.ts 
+Done in 3.24s.
+yarn unit v0.21.3
+$ yarn build && yarn build:tests && nyc ava 
+yarn build v0.21.3
+$ trash build && yarn build:main && yarn build:module && yarn build:browser-deps && yarn build:browser && yarn build:browser-cjs && yarn build:resolve-sourcemaps 
+yarn build:main v0.21.3
+$ tsc -p tsconfig.json 
+Done in 1.73s.
+yarn build:module v0.21.3
+$ tsc -p config/exports/tsconfig.module.json 
+Done in 1.63s.
+yarn build:browser-deps v0.21.3
+$ mkdir -p build/temp && browserify node_modules/hash.js/lib/hash.js --standalone hash -o build/temp/hash.js 
+Done in 0.44s.
+yarn build:browser v0.21.3
+$ rollup -c config/exports/rollup.config.js -f es -o build/browser/index.js 
+Done in 0.64s.
+yarn build:browser-cjs v0.21.3
+$ rollup -c config/exports/rollup.config.js -f cjs -o build/browser/index.cjs.js 
+Done in 0.76s.
+yarn build:resolve-sourcemaps v0.21.3
+$ sorcery -i build/browser/index.js && sorcery -i build/browser/index.cjs.js 
+Done in 0.43s.
+Done in 7.37s.
+yarn build:tests v0.21.3
+$ trash test && node config/exports/build-tests.js 
+Done in 0.94s.
+-------------|----------|----------|----------|----------|----------------|
+File         |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+-------------|----------|----------|----------|----------|----------------|
+All files    |    89.01 |    79.63 |      100 |    89.01 |                |
+ src         |      100 |      100 |      100 |      100 |                |
+  index.ts   |      100 |      100 |      100 |      100 |                |
+ src/tracer  |    88.64 |    79.63 |      100 |    88.64 |                |
+  Context.ts |      100 |      100 |      100 |      100 |                |
+  Span.ts    |      100 |    92.86 |      100 |      100 |                |
+  Tracer.ts  |    84.96 |    75.58 |      100 |    84.96 |... 216,221,259 |
+-------------|----------|----------|----------|----------|----------------|
+Done in 12.05s.
+yarn check-coverage v0.21.3
+$ nyc check-coverage --lines 80 --functions 100 --branches 70 
+Done in 0.52s.
+
+lerna(verbose) NpmUtilities.runScriptInDir   ("test", [], "./packages/hawkly-grpc")
+lerna(verbose) NpmUtilities.execInDir        ("run test", [], "./packages/hawkly-grpc")
+lerna(error)   NpmUtilities.execInDir        ("run test", [], "./packages/hawkly-grpc")
+    Error: Command failed: npm run test 
+    error Command failed with exit code 2.
+    
+    npm ERR! Darwin 16.4.0
+    npm ERR! argv "/Users/owen/.nvm/versions/node/v7.6.0/bin/node" "/Users/owen/.nvm/versions/node/v7.6.0/bin/npm" "run" "test"
+    npm ERR! node v7.6.0
+    npm ERR! npm  v4.1.2
+    npm ERR! code ELIFECYCLE
+    npm ERR! hawkly-grpc@0.5.15 test: `yarn lint && yarn unit && yarn check-coverage`
+    npm ERR! Exit status 1
+    npm ERR! 
+    npm ERR! Failed at the hawkly-grpc@0.5.15 test script 'yarn lint && yarn unit && yarn check-coverage'.
+    npm ERR! Make sure you have the latest version of node.js and npm installed.
+    npm ERR! If you do, this is most likely a problem with the hawkly-grpc package,
+    npm ERR! not with npm itself.
+    npm ERR! Tell the author that this fails on your system:
+    npm ERR!     yarn lint && yarn unit && yarn check-coverage
+    npm ERR! You can get information on how to open an issue for this project with:
+    npm ERR!     npm bugs hawkly-grpc
+    npm ERR! Or if that isn't available, you can get their info via:
+    npm ERR!     npm owner ls hawkly-grpc
+    npm ERR! There is likely additional logging output above.
+    
+    npm ERR! Please include the following file with any support request:
+    npm ERR!     /Users/owen/Code/repositories/hawkly/hawkly-libs-javascript/packages/hawkly-grpc/npm-debug.log
+    
+        at ChildProcess.exithandler (child_process.js:211:12)
+        at emitTwo (events.js:106:13)
+        at ChildProcess.emit (events.js:192:7)
+        at maybeClose (internal/child_process.js:890:16)
+        at Socket.<anonymous> (internal/child_process.js:334:11)
+        at emitOne (events.js:96:13)
+        at Socket.emit (events.js:189:7)
+        at Pipe._handle.close [as _onclose] (net.js:501:12)
+lerna(error)   
+> hawkly-grpc@0.5.15 test /Users/owen/Code/repositories/hawkly/hawkly-libs-javascript/packages/hawkly-grpc
+> yarn lint && yarn unit && yarn check-coverage
+
+yarn lint v0.21.3
+$ tslint src/**/*.ts 
+
+src/middleware.ts[76, 5]: Found constant conditional: if (false)
+src/middleware.ts[83, 7]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[83, 19]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[84, 27]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[89, 5]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[90, 15]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[100, 16]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[106, 7]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[107, 7]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[122, 5]: the "this" keyword is disallowed outside of a class body
+
+lerna(error)   NpmUtilities.runScriptInDir   ("test", [], "./packages/hawkly-grpc")
+lerna(error)   
+> hawkly-grpc@0.5.15 test /Users/owen/Code/repositories/hawkly/hawkly-libs-javascript/packages/hawkly-grpc
+> yarn lint && yarn unit && yarn check-coverage
+
+yarn lint v0.21.3
+$ tslint src/**/*.ts 
+
+src/middleware.ts[76, 5]: Found constant conditional: if (false)
+src/middleware.ts[83, 7]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[83, 19]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[84, 27]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[89, 5]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[90, 15]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[100, 16]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[106, 7]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[107, 7]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[122, 5]: the "this" keyword is disallowed outside of a class body
+
+lerna(info)    
+> hawkly-grpc@0.5.15 test /Users/owen/Code/repositories/hawkly/hawkly-libs-javascript/packages/hawkly-grpc
+> yarn lint && yarn unit && yarn check-coverage
+
+yarn lint v0.21.3
+$ tslint src/**/*.ts 
+
+src/middleware.ts[76, 5]: Found constant conditional: if (false)
+src/middleware.ts[83, 7]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[83, 19]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[84, 27]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[89, 5]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[90, 15]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[100, 16]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[106, 7]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[107, 7]: the "this" keyword is disallowed outside of a class body
+src/middleware.ts[122, 5]: the "this" keyword is disallowed outside of a class body
+
+lerna(error)   Errored while running npm script 'test' in 'hawkly-grpc'
+lerna(error)   Errored while running RunCommand.execute
