@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.15"></a>
+## [0.5.15](https://github.com/hawkly/hawkly-libs-javascript/hawkly-grpc/compare/v0.5.20...v0.5.15) (2017-03-27)
+
+
+
 <a name="0.5.14"></a>
 ## [0.5.14](https://github.com/hawkly/hawkly-grpc-javascript/compare/v0.5.13...v0.5.14) (2017-03-13)
 
